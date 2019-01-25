@@ -21,5 +21,28 @@ namespace Travalon.Api.Repositories
         {
             return await _context.Students.ToListAsync();
         }
+
+        public async Task<Student> GetById(long id)
+        {
+            return await _context.Students.Where(s => s.StudentID == id).FirstOrDefaultAsync();
+        }
+
+        public async Task Create(Student std)
+        {
+            _context.Students.Add(std);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(Student std)
+        {
+            _context.Entry(std).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Delete(Student std)
+        {
+            _context.Students.Remove(std);
+            await _context.SaveChangesAsync();
+        }
     }
 }

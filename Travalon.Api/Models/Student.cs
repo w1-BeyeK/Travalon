@@ -8,7 +8,7 @@ namespace Travalon.Api.Models
     /* DateTime? for nullable datetimes */
     public class Student
     {
-        public int StudentID { get; set; }
+        public long StudentID { get; set; }
         public string StudentName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public byte[] Photo { get; set; }

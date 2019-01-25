@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Travalon.Api.Models;
 
 namespace Travalon.Api.Controllers
 {
@@ -11,9 +13,18 @@ namespace Travalon.Api.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+            return JsonConvert.SerializeObject(new Student()
+            {
+                DateOfBirth = DateTime.Now,
+                Friends = new List<Student>(),
+                Height = 1.79M,
+                Photo = new byte[23],
+                StudentID = 1,
+                StudentName = "Kevin",
+                Weight = 85
+            });
         }
 
         // GET api/values/5

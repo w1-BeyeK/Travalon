@@ -31,5 +31,66 @@ namespace Travalon.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetStudent(long id)
+        {
+            try
+            {
+                Student std = await _service.GetById(id);
+                return Ok(std);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateStudent([FromBody]Student std)
+        {
+            try
+            {
+                await _service.Create(std);
+                return Created("", std);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateStudent(long id, [FromBody]Student std)
+        {
+            try
+            {
+                if(id != std.StudentID)
+                {
+                    return BadRequest();
+                }
+
+                await _service.Update(std);
+                return NoContent();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStudent(long id)
+        {
+            try
+            {
+                await _service.Delete(id);
+                return NoContent();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

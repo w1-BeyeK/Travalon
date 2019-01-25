@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Travalon.Api.Models;
+using Travalon.Api.Models.Exceptions;
 using Travalon.Api.Repositories;
 
 namespace Travalon.Api.Services
@@ -16,14 +17,9 @@ namespace Travalon.Api.Services
             _repo = repo;
         }
 
-        public bool Add(Student obj)
+        public async Task Create(Student obj)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(Student obj)
-        {
-            throw new NotImplementedException();
+            await _repo.Create(obj);
         }
 
         public async Task<ICollection<Student>> GetAll()
@@ -36,9 +32,26 @@ namespace Travalon.Api.Services
             throw new NotImplementedException();
         }
 
-        public bool Update(Student obj)
+        public async Task<Student> GetById(long id)
         {
-            throw new NotImplementedException();
+            return await _repo.GetById(id);
+        }
+
+        public async Task Update(Student obj)
+        {
+            await _repo.Update(obj);
+        }
+
+        public async Task Delete(long id)
+        {
+            var student = await _repo.GetById(id);
+
+            if (student == null)
+            {
+                throw new ItemNotFoundException("Could not find student with selected ID");
+            }
+
+            await _repo.Delete(student);
         }
     }
 }

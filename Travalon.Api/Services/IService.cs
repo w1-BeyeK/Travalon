@@ -8,9 +8,10 @@ namespace Travalon.Api.Services
     public interface IService<T>
     {
         Task<ICollection<T>> GetAll();
+        Task<T> GetById(long id);
         ICollection<T> GetWithFilter(List<KeyValuePair<string, string>> filters);
-        bool Add(T obj);
-        bool Update(T obj);
-        bool Delete(T obj);
+        Task Create(T obj);
+        Task Update(T obj);
+        Task Delete(long id);
     }
 }
